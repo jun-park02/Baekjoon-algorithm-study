@@ -1,6 +1,6 @@
 #include <iostream>
 
-// Rule of 3 알아보기
+// Rule of 3
 
 class LinkedList {
     private: 
@@ -19,10 +19,12 @@ class LinkedList {
         ~LinkedList(void);
         void push_back(int value);
         void push_front(int value);
-        void pop_back();
-        // void pop_front();
+        void pop_back(void);
+        void pop_front(void);
         void print(void);
-        // void get_last(void);
+        void get_last(void);
+        void get_first(void);
+        int size() const;
 };
 
 LinkedList::LinkedList(void) {
@@ -75,33 +77,52 @@ void LinkedList::push_front(int value) {
 }
 
 void LinkedList::pop_back() {
-    // tail 갱신
-    // 노드가 1개 일때 head ta
-
-
     if (this->length == 0) {
         return;
     }
 
+    if (this->length == 1) {
+        delete this->tail;
+        this->head = nullptr;
+        this->tail = nullptr;
+        this->length -= 1;
+        return;
+    }
+
     Node* prev = nullptr;
-    Node* last = this->head;
+    Node* cur = this->head;
 
-    while (last != this->tail) {
-        prev = last;
-        last = last->next;
+    while (cur != this->tail) {
+        prev = cur;
+        cur = cur->next;
     }
 
-    if (prev) {
-        prev->next = nullptr;
-    }
+    prev->next = nullptr;
 
-    delete last;
+    delete cur;
+    this->tail = prev;
+    this->length -= 1;
 }
 
+void LinkedList::pop_front() {
+    if (this->length == 0) {
+        return;        
+    }
 
-// void LinkedList::pop_front() {
+    if (this->length == 1) {
+        delete this->head;
+        this->head = nullptr;
+        this->tail = nullptr;
+        this->length -= 1;
+        return;
+    }
 
-// }
+    Node* head_next = this->head->next;
+
+    delete this->head;
+    this->head = head_next;
+    this->length -= 1;
+}
 
 void LinkedList::print() {
     Node* ptr = this->head;
@@ -114,10 +135,23 @@ void LinkedList::print() {
     std::cout << std::endl;
 }
 
-// void LinkedList::get_last(void) {
-//     std::cout << this->tail->data;
-//     std::cout << "\nasdasdasdasdasdasdsad";
-// }
+void LinkedList::get_last(void) {
+    if (this->tail == nullptr)
+        return;
+
+    std::cout << this->tail->data << std::endl;
+}
+
+void LinkedList::get_first(void) {
+    if (this->head == nullptr)
+        return;
+
+    std::cout << this->head->data << std::endl;
+}
+
+int LinkedList::size() const {
+    return this->length;
+}
 
 
 int main(void) {

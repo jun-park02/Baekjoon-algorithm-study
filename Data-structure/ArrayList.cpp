@@ -51,6 +51,7 @@ public:
         }
 
         // 끝쪽 원소부터 해서 한 칸씩 당기는
+        // 반대로 밀면 값이 중복됨
         for (int i = size_; i > index; i--) {
             data[i] = data[i - 1];
         }

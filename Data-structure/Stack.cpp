@@ -43,6 +43,13 @@ public:
     // Stack s1;
     // Stack s2 = s1; -> 불가능
     // Stack s3(s1); -> 불가능
+
+    // Stack끼리 대입하는 = 연산자를 선언하되, 사용하지는 못하게 막는다
+    // operator= 는 함수 이름이다
+    // s2 = s1;
+    // 이 코드는 문법적으로 s2.operator=(s1); 이렇게 해석할 수 있습니다.
+    // Stack& operator=(const Stack& other);
+    // Stack 객체끼리 = 대입을 할 때 이 함수가 호출됨
     Stack& operator=(const Stack&) = delete;
     // 위 코드는 이런 코드를 금지함
     // Stack s1;
